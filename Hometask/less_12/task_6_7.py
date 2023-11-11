@@ -8,6 +8,11 @@ from Hometask.less_12.task_5 import RealShop
 # Также необходимо создать на основе dataclass `Product` новый,
 # общий для всех товаров в мебельном магазине, класс `Furniture`, каждый
 # новый тип товара в этом магазине должен быть его предком.
+
+# 7. Реализовать в методах `add_product` и `sell_product` проверку, что
+# передаваемый продукт является мебелью через функцию `isinstance`. Если
+# это не так, то необходимо вызвать ошибку `NonProductError `.
+
 @dataclass
 class Furniture(Product):
     material: str
