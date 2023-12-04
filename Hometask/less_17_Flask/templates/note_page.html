@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Note Page</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		  integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+<div class="my-auto">
+
+	<div class='mx-auto text-center'>
+		<h4 class="text-danger">{% if error %} {{ error }} {% endif %}</h4>
+	</div>
+
+	{% if note %}
+		<div class='col-5 mx-auto py-3 p-5 border rounded' style="background: lightcyan">
+			<h2>Данные записи </h2>
+			<div class="mb-3">
+				<label class="form-label">uuid: {{ note.uuid }}</label>
+			</div>
+			<div class="mb-3">
+				<label class="form-label">title: {{ note.title }}</label>
+			</div>
+			<div class="mb-3">
+				<label class="form-label">content: {{ note.content }}</label>
+			</div>
+			<div class="mb-3">
+				<label class="form-label">created_at: {{ note.created_at }}</label>
+			</div>
+		</div>
+	{% endif %}
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+		crossorigin="anonymous"></script>
+</body>
+</html>
