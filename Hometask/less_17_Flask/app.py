@@ -1,15 +1,20 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from sqlalchemy.exc import IntegrityError
 
-from models import add_note, get_uuid, get_note, create_tables
+from models import create_tables
+from crud import add_note, get_uuid, get_note, get_all_notes
 from exeptions import EmptyError
 
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    template_folder="templates",
+    # Путь, по которому можно получить файлы их папки `static_folder`.
+)
 
 
 @app.route('/', methods=['GET'])
 def hello_world():
-    return render_template('main_page.html')
+    return render_template('main_page.html',  notes=get_all_notes())
 
 
 @app.route('/', methods=['POST'])
@@ -19,12 +24,11 @@ def add_note_view():
         add_note(data['title'], data['content'])
     except EmptyError:
         error = 'Поля title и content не могут быть пустыми'
-        return render_template('main_page.html', error=error, data=data)
+        return render_template('main_page.html', error=error, data=data, notes=get_all_notes())
     except IntegrityError:
         error = 'Поле title должно быть уникальным'
-        return render_template('main_page.html', error=error, data=data)
-    uuid = get_uuid(data['title'])
-    return render_template('uuid_page.html', uuid=uuid)
+        return render_template('main_page.html', error=error, data=data, notes=get_all_notes())
+    return redirect('/')
 
 
 @app.route('/<uuid>', methods=['GET'])
